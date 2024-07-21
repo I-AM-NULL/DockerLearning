@@ -23,9 +23,9 @@ run:
       dir: DockerLearning
 
     - name: push-docker-image
-      command: docker tag my-docker-learning-image $CI_REGISTRY_IMAGE/my-docker-learning-image:latest
+      command: docker tag my-docker-learning-image saiteja001/concourselearning/my-docker-learning-image:latest
       dir: DockerLearning
 
     - name: deploy-docker-image
-      command: docker push $CI_REGISTRY_IMAGE/my-docker-learning-image:latest
+      command: docker push saiteja001/concourselearning/my-docker-learning-image:latest
       dir: DockerLearning
