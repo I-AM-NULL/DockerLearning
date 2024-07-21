@@ -1,0 +1,13 @@
+resources:
+  - name: docker-learning
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/I-AM-NULL/DockerLearning
+
+jobs:
+  - name: build-and-deploy
+    plan:
+      - get: DockerLearning
+      - task: build-and-deploy
+        file: my-repo/ci/build-and-deploy.yml

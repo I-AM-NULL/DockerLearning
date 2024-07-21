@@ -1,0 +1,14 @@
+tasks:
+  - name: build
+    command: |
+      mkdir -p bin
+      gcc -o bin/myapp myapp.c
+  - name: test
+    command: |
+      bin/myapp --test
+  - name: deploy
+    command: |
+      ssh deploy@prod-server "mkdir -p /var/www/myapp"
+      scp bin/myapp deploy@prod-server:/var/www/myapp/
+    config:
+      SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
