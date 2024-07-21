@@ -1,14 +1,31 @@
-tasks:
-  - name: build
-    command: |
-      mkdir -p bin
-      gcc -o bin/myapp myapp.c
-  - name: test
-    command: |
-      bin/myapp --test
-  - name: deploy
-    command: |
-      ssh deploy@prod-server "mkdir -p /var/www/myapp"
-      scp bin/myapp deploy@prod-server:/var/www/myapp/
-    config:
-      SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: openjdk
+    tag: 17
+
+inputs:
+  - name: DockerLearning
+
+outputs:
+  - name: docker-image
+
+run:
+  steps:
+    - name: checkout-code
+      command: git clone https://github.com/I-AM-NULL/DockerLearning.git
+      dir: DockerLearning
+
+    - name: build-docker-image
+      command: docker build -t my-docker-learning-image .
+      dir: DockerLearning
+
+    - name: push-docker-image
+      command: docker tag my-docker-learning-image $CI_REGISTRY_IMAGE/my-docker-learning-image:latest
+      dir: DockerLearning
+
+    - name: deploy-docker-image
+      command: docker push $CI_REGISTRY_IMAGE/my-docker-learning-image:latest
+      dir: DockerLearning

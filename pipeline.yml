@@ -10,4 +10,4 @@ jobs:
     plan:
       - get: DockerLearning
       - task: build-and-deploy
-        file: my-repo/ci/build-and-deploy.yml
+        file: DockerLearning/build-and-deploy.yml
